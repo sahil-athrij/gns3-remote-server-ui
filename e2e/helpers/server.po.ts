@@ -20,7 +20,7 @@ export class ServersPage {
         let serversTable = await this.checkServersTable();
         if (serversTable.length === 0) {
             let buttons = await browser.driver.findElements(by.className('mat-button mat-button-base'));
-            await buttons[3].click();   
+            await buttons[3].click();
         }
     }
 
@@ -34,7 +34,7 @@ export class ServersPage {
         let serverLink;
         await this.helper.asyncForEach(hyperlinks, async element => {
             let text = await element.getText();
-            if (text === '127.0.0.1') serverLink = element;
+            if (text === 'ec2-13-235-99-198.ap-south-1.compute.amazonaws.com') serverLink = element;
         });
         await serverLink.click();
     }

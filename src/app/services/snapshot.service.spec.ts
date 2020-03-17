@@ -41,7 +41,7 @@ describe('SnapshotService', () => {
     const snapshot = new Snapshot();
     service.create(server, 'myproject', snapshot).subscribe();
 
-    const req = httpTestingController.expectOne('http://127.0.0.1:3080/v2/projects/myproject/snapshots');
+    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/projects/myproject/snapshots');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual(snapshot);
   }));
@@ -49,7 +49,7 @@ describe('SnapshotService', () => {
   it('should list snapshots', inject([SnapshotService], (service: SnapshotService) => {
     service.list(server, 'myproject').subscribe();
 
-    const req = httpTestingController.expectOne('http://127.0.0.1:3080/v2/projects/myproject/snapshots');
+    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/projects/myproject/snapshots');
     expect(req.request.method).toEqual('GET');
   }));
 });

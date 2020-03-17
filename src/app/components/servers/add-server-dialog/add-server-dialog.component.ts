@@ -46,7 +46,7 @@ export class AddServerDialogComponent implements OnInit {
     return locations
   }
 
-  
+
   async getDefaultLocation() {
     const localServers = await this.numberOfLocalServers();
     if(this.electronService.isElectronApp && localServers === 0) {
@@ -61,11 +61,11 @@ export class AddServerDialogComponent implements OnInit {
   }
 
   getDefaultHost() {
-    return '127.0.0.1';
+    return 'ec2-13-235-99-198.ap-south-1.compute.amazonaws.com';
   }
 
   getDefaultPort() {
-    return 3080;
+    return 443;
   }
 
   async getDefaultLocalServerPath() {
@@ -113,7 +113,7 @@ export class AddServerDialogComponent implements OnInit {
         });
       })
     });
-    
+
     this.serverForm.get('authorization').valueChanges.subscribe((authorization: string) => {
       const loginControl = this.serverForm.get('login');
       const passwordControl = this.serverForm.get('password');
@@ -157,7 +157,7 @@ export class AddServerDialogComponent implements OnInit {
           this.toasterService.error(`Server version is not supported.`)
         }
       },
-      error => { 
+      error => {
         this.toasterService.error('Cannot connect to the server.')
       }
     );

@@ -1,18 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Project } from '../models/project';
-import { Node } from '../cartography/models/node';
-import { Observable, Subject } from 'rxjs';
-import { Link } from '../models/link';
-import { Server } from '../models/server';
-import { HttpServer } from './http-server.service';
-import { Drawing } from '../cartography/models/drawing';
-import { SettingsService } from './settings.service';
+import {Injectable} from '@angular/core';
+import {Project} from '../models/project';
+import {Node} from '../cartography/models/node';
+import {Observable, Subject} from 'rxjs';
+import {Link} from '../models/link';
+import {Server} from '../models/server';
+import {HttpServer} from './http-server.service';
+import {Drawing} from '../cartography/models/drawing';
+import {SettingsService} from './settings.service';
 
 @Injectable()
 export class ProjectService {
   public projectListSubject = new Subject<boolean>();
 
-  constructor(private httpServer: HttpServer, private settingsService: SettingsService) {}
+  constructor(private httpServer: HttpServer, private settingsService: SettingsService) {
+  }
 
   projectListUpdated() {
     this.projectListSubject.next(true);
@@ -47,10 +48,10 @@ export class ProjectService {
   }
 
   add(server: Server, project_name: string, project_id: string): Observable<any> {
-    return this.httpServer.post<Project>(server, `/projects`, { name: project_name, project_id: project_id });
+    return this.httpServer.post<Project>(server, `/projects`, {name: project_name, project_id: project_id});
   }
 
-  update(server: Server, project: Project) : Observable<Project> {
+  update(server: Server, project: Project): Observable<Project> {
     return this.httpServer.put<Project>(server, `/projects/${project.project_id}`, {
       auto_close: project.auto_close,
       auto_open: project.auto_open,
@@ -83,12 +84,15 @@ export class ProjectService {
   getStatistics(server: Server, project_id: string): Observable<any> {
     return this.httpServer.get(server, `/projects/${project_id}/stats`);
   }
-  
+
   duplicate(server: Server, project_id: string, project_name): Observable<any> {
-    return this.httpServer.post(server, `/projects/${project_id}/duplicate`, { name: project_name });
+    return this.httpServer.post(server, `/projects/${project_id}/duplicate`, {name: project_name});
   }
 
   notificationsPath(server: Server, project_id: string): string {
+    if (!server.port) {
+      server.port = 443;
+    }
     return `ws://${server.host}:${server.port}/v2/projects/${project_id}/notifications/ws`;
   }
 

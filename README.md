@@ -40,7 +40,7 @@ Visit [gns3-server](https://github.com/GNS3/gns3-server) for guide how to run GN
 yarn ng serve
 ``` 
 
-Application is accessible on `http://127.0.0.1:4200/`. The app will automatically reload if you change any of the source files.
+Application is accessible on `http://13.235.99.198:4200/`. The app will automatically reload if you change any of the source files.
 
 ### Docker container
 

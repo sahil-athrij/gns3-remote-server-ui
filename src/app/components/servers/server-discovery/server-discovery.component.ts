@@ -18,8 +18,8 @@ import { ServerDatabase } from '../../../services/server.database';
 export class ServerDiscoveryComponent implements OnInit {
   private defaultServers = [
     {
-      host: '127.0.0.1',
-      port: 3080
+      host: 'ec2-13-235-99-198.ap-south-1.compute.amazonaws.com',
+      port: 443
     }
   ];
 

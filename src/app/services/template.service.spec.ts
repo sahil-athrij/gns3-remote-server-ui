@@ -29,13 +29,13 @@ describe('TemplateService', () => {
 
   it('should ask for the list from server', () => {
     const server = new Server();
-    server.host = '127.0.0.1';
+    server.host = '13.235.99.198';
     server.port = 3080;
     server.authorization = 'none';
 
     service.list(server).subscribe(() => {});
 
-    const req = httpTestingController.expectOne('http://127.0.0.1:3080/v2/templates');
-    expect(req.request.url).toBe('http://127.0.0.1:3080/v2/templates');
+    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/templates');
+    expect(req.request.url).toBe('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/templates');
   });
 });
