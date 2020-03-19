@@ -58,3 +58,4 @@ licenses.csv
 
 # external software
 /external
+/venv/
