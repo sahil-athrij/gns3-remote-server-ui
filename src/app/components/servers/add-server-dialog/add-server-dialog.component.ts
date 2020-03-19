@@ -61,7 +61,7 @@ export class AddServerDialogComponent implements OnInit {
   }
 
   getDefaultHost() {
-    return 'ec2-13-235-99-198.ap-south-1.compute.amazonaws.com';
+    return 'ec2-13-233-160-96.ap-south-1.compute.amazonaws.com';
   }
 
   getDefaultPort() {

@@ -20,7 +20,7 @@ describe('Servers page', () => {
         let text = await page.getAddServerNotificationText();
 
         // assert
-        expect(text).toBe("We've discovered GNS3 server on ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443, would you like to add to the list?");
+        expect(text).toBe("We've discovered GNS3 server on ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443, would you like to add to the list?");
     });
 
     it('user should see added server in the list', async () => {
@@ -38,7 +38,7 @@ describe('Servers page', () => {
         });
 
         // assert
-        expect(serverData).toContain('ec2-13-235-99-198.ap-south-1.compute.amazonaws.com');
+        expect(serverData).toContain('ec2-13-233-160-96.ap-south-1.compute.amazonaws.com');
         expect(serverData).toContain('3080');
     });
 });

@@ -48,7 +48,7 @@ describe('VersionService', () => {
   it('should get version', inject([VersionService], (service: VersionService) => {
     service.get(server).subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/version');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/version');
     expect(req.request.method).toEqual('GET');
   }));
 });

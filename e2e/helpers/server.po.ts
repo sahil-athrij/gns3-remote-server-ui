@@ -34,7 +34,7 @@ export class ServersPage {
         let serverLink;
         await this.helper.asyncForEach(hyperlinks, async element => {
             let text = await element.getText();
-            if (text === 'ec2-13-235-99-198.ap-south-1.compute.amazonaws.com') serverLink = element;
+            if (text === 'ec2-13-233-160-96.ap-south-1.compute.amazonaws.com') serverLink = element;
         });
         await serverLink.click();
     }

@@ -63,7 +63,7 @@ describe('VirtualBoxService', () => {
 
         service.saveTemplate(server, template).subscribe();
 
-        const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/templates/1');
+        const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/templates/1');
         expect(req.request.method).toEqual('PUT');
         expect(req.request.body).toEqual(template);
     }));
@@ -97,7 +97,7 @@ describe('VirtualBoxService', () => {
 
         service.addTemplate(server, template).subscribe();
 
-        const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/templates');
+        const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/templates');
         expect(req.request.method).toEqual('POST');
         expect(req.request.body).toEqual(template);
     }));
@@ -105,7 +105,7 @@ describe('VirtualBoxService', () => {
     it('should get available virtual machines', inject([VirtualBoxService], (service: VirtualBoxService) => {
         service.getVirtualMachines(server).subscribe();
 
-        const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/compute/virtualbox/vms');
+        const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/compute/virtualbox/vms');
         expect(req.request.method).toEqual('GET');
     }));
 });

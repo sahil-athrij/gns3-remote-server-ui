@@ -77,7 +77,7 @@ describe('HttpServer', () => {
   it('should make GET query for get method', () => {
     service.get(server, '/test').subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('GET');
     expect(req.request.responseType).toEqual('json');
   });
@@ -90,7 +90,7 @@ describe('HttpServer', () => {
       expect(data).toEqual(testData);
     });
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('GET');
     expect(req.request.responseType).toEqual('json');
 
@@ -116,7 +116,7 @@ describe('HttpServer', () => {
   it('should make GET query for getText method', () => {
     service.getText(server, '/test').subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('GET');
     expect(req.request.responseType).toEqual('text');
   });
@@ -131,7 +131,7 @@ describe('HttpServer', () => {
       })
       .subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('GET');
     expect(req.request.responseType).toEqual('text');
   });
@@ -139,7 +139,7 @@ describe('HttpServer', () => {
   it('should make POST query for post method', () => {
     service.post(server, '/test', { test: '1' }).subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('POST');
     expect(req.request.responseType).toEqual('json');
   });
@@ -147,7 +147,7 @@ describe('HttpServer', () => {
   it('should make PUT query for put method', () => {
     service.put(server, '/test', { test: '1' }).subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('PUT');
     expect(req.request.responseType).toEqual('json');
   });
@@ -155,7 +155,7 @@ describe('HttpServer', () => {
   it('should make DELETE query for delete method', () => {
     service.delete(server, '/test').subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('DELETE');
     expect(req.request.responseType).toEqual('json');
   });
@@ -163,7 +163,7 @@ describe('HttpServer', () => {
   it('should make PATCH query for patch method', () => {
     service.patch(server, '/test', { test: '1' }).subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('PATCH');
     expect(req.request.responseType).toEqual('json');
   });
@@ -171,7 +171,7 @@ describe('HttpServer', () => {
   it('should make HEAD query for head method', () => {
     service.head(server, '/test').subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('HEAD');
     expect(req.request.responseType).toEqual('json');
   });
@@ -179,7 +179,7 @@ describe('HttpServer', () => {
   it('should make OPTIONS query for options method', () => {
     service.options(server, '/test').subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('OPTIONS');
     expect(req.request.responseType).toEqual('json');
   });
@@ -191,7 +191,7 @@ describe('HttpServer', () => {
 
     service.get(server, '/test').subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('GET');
     expect(req.request.responseType).toEqual('json');
     expect(req.request.headers.get('Authorization')).toEqual('Basic bG9naW46cGFzc3dvcmQ=');
@@ -210,7 +210,7 @@ describe('HttpServer', () => {
       })
       .subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-235-99-198.ap-south-1.compute.amazonaws.com:443/v2/test');
+    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/test');
     expect(req.request.method).toEqual('GET');
     expect(req.request.responseType).toEqual('json');
     expect(req.request.headers.get('Authorization')).toEqual('Basic bG9naW46cGFzc3dvcmQ=');
