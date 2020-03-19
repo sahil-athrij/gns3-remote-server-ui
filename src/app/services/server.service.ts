@@ -60,7 +60,7 @@ export class ServerService {
   }
 
   public getServerUrl(server: Server) {
-    return `http://${server.host}:${server.port}/`;
+    return `https://${server.host}:${server.port}/`;
   }
 
   public checkServerVersion(server: Server): Observable<any> {

@@ -54,7 +54,7 @@ describe('LinkService', () => {
 
     service.createLink(server, sourceNode, sourcePort, targetNode, targetPort, 0, 0, 10, 10).subscribe();
 
-    const req = httpTestingController.expectOne('http://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:3081/v2/projects/myproject/links');
+    const req = httpTestingController.expectOne('https://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:3081/v2/projects/myproject/links');
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual({
       nodes: [

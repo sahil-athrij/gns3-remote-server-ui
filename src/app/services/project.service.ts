@@ -70,11 +70,11 @@ export class ProjectService {
   }
 
   getUploadPath(server: Server, uuid: string, project_name: string) {
-    return `http://${server.host}:${server.port}/v2/projects/${uuid}/import?name=${project_name}`;
+    return `https://${server.host}:${server.port}/v2/projects/${uuid}/import?name=${project_name}`;
   }
 
   getExportPath(server: Server, project: Project) {
-    return `http://${server.host}:${server.port}/v2/projects/${project.project_id}/export`;
+    return `https://${server.host}:${server.port}/v2/projects/${project.project_id}/export`;
   }
 
   export(server: Server, project_id: string): Observable<any> {

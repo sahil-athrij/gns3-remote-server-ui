@@ -41,11 +41,11 @@ export class ImportApplianceComponent implements OnInit {
         this.uploader.onAfterAddingFile = file => {
             file.withCredentials = false;
         };
-    
+
         this.uploader.onErrorItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
             this.toasterService.error('An error has occured');
         };
-    
+
         this.uploader.onCompleteItem = (
             item: FileItem,
             response: string,
@@ -154,6 +154,6 @@ export class ImportApplianceComponent implements OnInit {
     }
 
     private getUploadPath(server: Server, emulator: string, filename: string) {
-        return `http://${server.host}:${server.port}/v2/${emulator}/images/${filename}`;
+        return `https://${server.host}:${server.port}/v2/${emulator}/images/${filename}`;
     }
 }
