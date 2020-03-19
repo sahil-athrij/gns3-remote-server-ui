@@ -65,7 +65,7 @@ export class AddServerDialogComponent implements OnInit {
   }
 
   getDefaultPort() {
-    return 443;
+    return 3081;
   }
 
   async getDefaultLocalServerPath() {

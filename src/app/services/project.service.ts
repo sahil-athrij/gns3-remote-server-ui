@@ -91,7 +91,7 @@ export class ProjectService {
 
   notificationsPath(server: Server, project_id: string): string {
     if (!server.port) {
-      server.port = 443;
+      server.port = 3081;
     }
     return `ws://${server.host}:${server.port}/v2/projects/${project_id}/notifications/ws`;
   }

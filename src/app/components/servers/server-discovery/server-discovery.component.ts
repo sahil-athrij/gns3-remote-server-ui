@@ -19,7 +19,7 @@ export class ServerDiscoveryComponent implements OnInit {
   private defaultServers = [
     {
       host: 'ec2-13-233-160-96.ap-south-1.compute.amazonaws.com',
-      port: 443
+      port: 3081
     }
   ];
 

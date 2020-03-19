@@ -30,7 +30,7 @@ describe('TemplateService', () => {
   it('should ask for the list from server', () => {
     const server = new Server();
     server.host = '13.235.99.198';
-    server.port = 3080;
+    server.port = 3081;
     server.authorization = 'none';
 
     service.list(server).subscribe(() => {});

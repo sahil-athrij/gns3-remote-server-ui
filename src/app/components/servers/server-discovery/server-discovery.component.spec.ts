@@ -54,14 +54,14 @@ describe('ServerDiscoveryComponent', () => {
 
       const getVersionSpy = spyOn(mockedVersionService, 'get').and.returnValue(Observable.of(version));
 
-      component.isServerAvailable('ec2-13-233-160-96.ap-south-1.compute.amazonaws.com', 443).subscribe(s => {
+      component.isServerAvailable('ec2-13-233-160-96.ap-south-1.compute.amazonaws.com', 3081).subscribe(s => {
         expect(s.host).toEqual('ec2-13-233-160-96.ap-south-1.compute.amazonaws.com');
-        expect(s.port).toEqual(443);
+        expect(s.port).toEqual(3081);
       });
 
       const server = new Server();
       server.host = 'ec2-13-233-160-96.ap-south-1.compute.amazonaws.com';
-      server.port = 443;
+      server.port = 3081;
 
       expect(getVersionSpy).toHaveBeenCalledWith(server);
     });
@@ -69,14 +69,14 @@ describe('ServerDiscoveryComponent', () => {
     it('should throw error once server is not available', () => {
       const server = new Server();
       server.host = 'ec2-13-233-160-96.ap-south-1.compute.amazonaws.com';
-      server.port = 443;
+      server.port = 3081;
 
       const getVersionSpy = spyOn(mockedVersionService, 'get').and.returnValue(
         Observable.throwError(new Error('server is unavailable'))
       );
       let hasExecuted = false;
 
-      component.isServerAvailable('ec2-13-233-160-96.ap-south-1.compute.amazonaws.com', 443).subscribe(
+      component.isServerAvailable('ec2-13-233-160-96.ap-south-1.compute.amazonaws.com', 3081).subscribe(
         ver => {},
         err => {
           hasExecuted = true;
@@ -103,7 +103,7 @@ describe('ServerDiscoveryComponent', () => {
 
       component.discovery().subscribe(discovered => {
         expect(discovered[0].host).toEqual('ec2-13-233-160-96.ap-south-1.compute.amazonaws.com');
-        expect(discovered[0].port).toEqual(443);
+        expect(discovered[0].port).toEqual(3081);
 
         expect(discovered.length).toEqual(1);
 

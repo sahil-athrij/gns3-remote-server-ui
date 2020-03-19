@@ -9,7 +9,7 @@ export class NotificationService {
 
   notificationsPath(server: Server): string {
     if (!server.port) {
-      server.port = 443;
+      server.port = 3081;
     }
     return `ws://${server.host}:${server.port}/v2/notifications/ws`;
   }
