@@ -149,7 +149,7 @@ describe('ProjectService', () => {
 
   it('should get notifications path of project', () => {
     const path = service.notificationsPath(server, 'myproject');
-    expect(path).toEqual('ws://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:3081/v2/projects/myproject/notifications/ws');
+    expect(path).toEqual('wss://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:3081/v2/projects/myproject/notifications/ws');
   });
 
   it('project should be readonly when defined as readonly ', () => {

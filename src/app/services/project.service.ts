@@ -93,7 +93,7 @@ export class ProjectService {
     if (!server.port) {
       server.port = 3081;
     }
-    return `ws://${server.host}:${server.port}/v2/projects/${project_id}/notifications/ws`;
+    return `wss://${server.host}:${server.port}/v2/projects/${project_id}/notifications/ws`;
   }
 
   isReadOnly(project: Project) {

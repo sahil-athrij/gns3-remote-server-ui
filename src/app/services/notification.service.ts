@@ -11,6 +11,6 @@ export class NotificationService {
     if (!server.port) {
       server.port = 3081;
     }
-    return `ws://${server.host}:${server.port}/v2/notifications/ws`;
+    return `wss://${server.host}:${server.port}/v2/notifications/ws`;
   }
 }
