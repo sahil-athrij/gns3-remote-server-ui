@@ -35,7 +35,7 @@ describe('TemplateService', () => {
 
     service.list(server).subscribe(() => {});
 
-    const req = httpTestingController.expectOne('https://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/templates');
-    expect(req.request.url).toBe('https://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:443/v2/templates');
+    const req = httpTestingController.expectOne('https://icsaa.in:443/v2/templates');
+    expect(req.request.url).toBe('https://icsaa.in:443/v2/templates');
   });
 });

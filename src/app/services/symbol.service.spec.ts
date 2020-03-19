@@ -39,14 +39,14 @@ describe('SymbolService', () => {
   it('should list symbols', inject([SymbolService], (service: SymbolService) => {
     service.list(server).subscribe();
 
-    const req = httpTestingController.expectOne('https://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:3081/v2/symbols');
+    const req = httpTestingController.expectOne('https://icsaa.in:3081/v2/symbols');
     expect(req.request.method).toEqual('GET');
   }));
 
   it('should get raw symbol', inject([SymbolService], (service: SymbolService) => {
     service.raw(server, ':my/tested.png').subscribe();
 
-    const req = httpTestingController.expectOne('https://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:3081/v2/symbols/:my/tested.png/raw');
+    const req = httpTestingController.expectOne('https://icsaa.in:3081/v2/symbols/:my/tested.png/raw');
     expect(req.request.method).toEqual('GET');
   }));
 

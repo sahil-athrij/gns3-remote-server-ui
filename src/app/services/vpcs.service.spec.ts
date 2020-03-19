@@ -51,7 +51,7 @@ describe('VpcsService', () => {
 
         service.saveTemplate(server, template).subscribe();
 
-        const req = httpTestingController.expectOne('https://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:3081/v2/templates/1');
+        const req = httpTestingController.expectOne('https://icsaa.in:3081/v2/templates/1');
         expect(req.request.method).toEqual('PUT');
         expect(req.request.body).toEqual(template);
     }));
@@ -73,7 +73,7 @@ describe('VpcsService', () => {
 
         service.addTemplate(server, template).subscribe();
 
-        const req = httpTestingController.expectOne('https://ec2-13-233-160-96.ap-south-1.compute.amazonaws.com:3081/v2/templates');
+        const req = httpTestingController.expectOne('https://icsaa.in:3081/v2/templates');
         expect(req.request.method).toEqual('POST');
         expect(req.request.body).toEqual(template);
     }));
