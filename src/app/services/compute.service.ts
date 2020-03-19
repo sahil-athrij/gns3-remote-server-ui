@@ -14,7 +14,7 @@ export class ComputeService {
     }
 
     getUploadPath(server: Server, emulator: string, filename: string) {
-        return `http://${server.host}:${server.port}/v2/${emulator}/images/${filename}`;
+        return `https://${server.host}:${server.port}/v2/${emulator}/images/${filename}`;
     }
 
     getStatistics(server: Server): Observable<ComputeStatistics[]> {

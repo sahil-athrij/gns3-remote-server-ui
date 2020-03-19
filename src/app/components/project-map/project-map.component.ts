@@ -159,7 +159,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.themeService.getActualTheme() === 'light' ? this.isLightThemeEnabled = true : this.isLightThemeEnabled = false; 
+    this.themeService.getActualTheme() === 'light' ? this.isLightThemeEnabled = true : this.isLightThemeEnabled = false;
     this.settings = this.settingsService.getAll();
     this.isTopologySummaryVisible = this.mapSettingsService.isTopologySummaryVisible;
     this.isConsoleVisible = this.mapSettingsService.isLogConsoleVisible;
@@ -187,7 +187,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
             } else {
               this.isInterfaceLabelVisible = this.project.show_interface_labels;
             }
-            
+
             this.recentlyOpenedProjectService.setServerId(this.server.id.toString());
             this.recentlyOpenedProjectService.setProjectId(this.project.project_id);
 
@@ -232,7 +232,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
       this.nodesDataSource.changes.subscribe((nodes: Node[]) => {
         if (!this.server) return;
         nodes.forEach((node: Node) => {
-          node.symbol_url = `http://${this.server.host}:${this.server.port}/v2/symbols/${node.symbol}/raw`;
+          node.symbol_url = `https://${this.server.host}:${this.server.port}/v2/symbols/${node.symbol}/raw`;
         });
 
         this.nodes = nodes;
@@ -580,7 +580,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
     if (this.project) {
       let scrollX: number = (this.project.scene_width - document.documentElement.clientWidth) > 0 ? (this.project.scene_width - document.documentElement.clientWidth)/2 : 0;
       let scrollY: number = (this.project.scene_height - document.documentElement.clientHeight) > 0 ? (this.project.scene_height - document.documentElement.clientHeight)/2 : 0;
-  
+
       window.scrollTo(scrollX, scrollY);
     } else {
       this.toasterService.error('Please wait until all components are loaded.');
@@ -609,7 +609,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
   public toggleMovingMode() {
     this.tools.moving = !this.tools.moving;
     this.movingEventSource.movingModeState.emit(this.tools.moving);
-    
+
     if (!this.readonly) {
       this.tools.selection = !this.tools.moving;
       this.toolsService.selectionToolActivation(this.tools.selection);
@@ -630,7 +630,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
     this.isConsoleVisible = visible;
     this.mapSettingsService.toggleLogConsole(this.isConsoleVisible);
   }
-  
+
   public toggleShowTopologySummary(visible: boolean) {
     this.isTopologySummaryVisible = visible;
     this.mapSettingsService.toggleTopologySummary(this.isTopologySummaryVisible);
@@ -753,7 +753,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
         this.bottomSheet.open(NavigationDialogComponent);
         let bottomSheetRef = this.bottomSheet._openedBottomSheetRef;
         bottomSheetRef.instance.projectMessage = 'imported project';
-        
+
         const bottomSheetSubscription = bottomSheetRef.afterDismissed().subscribe((result: boolean) => {
           if (result) {
             this.projectService.open(this.server, uuid).subscribe(() => {
@@ -768,16 +768,16 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
   exportProject() {
     if (this.nodes.filter(node => node.node_type === 'virtualbox').length > 0) {
       this.toasterService.error('Map with VirtualBox machines cannot be exported.')
-    } else if (this.nodes.filter(node => 
-        (node.status === 'started' && node.node_type==='vpcs') || 
-        (node.status === 'started' && node.node_type==='virtualbox') || 
+    } else if (this.nodes.filter(node =>
+        (node.status === 'started' && node.node_type==='vpcs') ||
+        (node.status === 'started' && node.node_type==='virtualbox') ||
         (node.status === 'started' && node.node_type==='vmware')).length > 0) {
       this.toasterService.error('Project with running nodes cannot be exported.')
     } else {
       location.assign(this.projectService.getExportPath(this.server, this.project));
     }
   }
-  
+
   public uploadImageFile(event) {
     this.readImageFile(event.target);
   }
@@ -789,12 +789,12 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
 
     fileReader.onloadend = () => {
       let image = fileReader.result;
-      let svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" 
-                height=\"${imageToUpload.height}\" width=\"${imageToUpload.width}\">\n<image height=\"${imageToUpload.height}\" width=\"${imageToUpload.width}\" 
+      let svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"
+                height=\"${imageToUpload.height}\" width=\"${imageToUpload.width}\">\n<image height=\"${imageToUpload.height}\" width=\"${imageToUpload.width}\"
                 xlink:href=\"${image}\"/>\n</svg>`;
       this.drawingService.add(this.server, this.project.project_id, -(imageToUpload.width/2), -(imageToUpload.height/2), svg).subscribe(() => {});
     }
-        
+
     imageToUpload.onload = () => { fileReader.readAsDataURL(file) };
     imageToUpload.src = window.URL.createObjectURL(file);
   }
