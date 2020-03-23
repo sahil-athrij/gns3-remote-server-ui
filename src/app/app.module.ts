@@ -194,6 +194,7 @@ import { ProjectMapMenuComponent } from './components/project-map/project-map-me
 import { HelpComponent } from './components/help/help.component';
 import { ConfigEditorDialogComponent } from './components/project-map/node-editors/config-editor/config-editor.component';
 import { EditConfigActionComponent } from './components/project-map/context-menu/actions/edit-config/edit-config-action.component';
+import { ShowConfigActionComponent } from './components/project-map/context-menu/actions/show-config-action/show-config-action.component';
 import { LogConsoleComponent } from './components/project-map/log-console/log-console.component';
 import { LogEventsDataSource } from './components/project-map/log-console/log-events-datasource';
 import { SaveProjectDialogComponent } from './components/projects/save-project-dialog/save-project-dialog.component';
@@ -388,6 +389,8 @@ if (environment.production) {
     NodesMenuComponent,
     AdbutlerComponent,
     ConsoleDeviceActionComponent,
+    ShowConfigActionComponent,
+
     ShowNodeActionComponent,
     ConsoleComponent,
     NodesMenuComponent,

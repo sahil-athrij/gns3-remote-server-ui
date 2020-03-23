@@ -1,13 +1,17 @@
 <div class="context-menu" [style.left]="leftPosition" [style.top]="topPosition">
   <span [matMenuTriggerFor]="contextMenu"></span>
   <mat-menu #contextMenu="matMenu" class="context-menu-items">
+    <app-show-config-action *ngIf="nodes.length===1"
+                          [server]="server"
+                          [node]="nodes[0]"
+    ></app-show-config-action>
     <app-show-node-action *ngIf="nodes.length===1"
-      [server]="server"
-      [node]="nodes[0]"
+                          [server]="server"
+                          [node]="nodes[0]"
     ></app-show-node-action>
     <app-config-node-action *ngIf="nodes.length===1"
-      [server]="server"
-      [node]="nodes[0]"
+                            [server]="server"
+                            [node]="nodes[0]"
     ></app-config-node-action>
     <app-start-node-action *ngIf="nodes.length" [server]="server" [nodes]="nodes"></app-start-node-action>
     <app-suspend-node-action *ngIf="nodes.length" [server]="server" [nodes]="nodes"></app-suspend-node-action>
@@ -36,20 +40,20 @@
       [node]="nodes[0]"
     ></app-change-symbol-action>
     <app-duplicate-action *ngIf="drawings.length>0 || nodes.length>0"
-      [server]="server"
-      [project]="project"
-      [nodes]="nodes"
-      [drawings]="drawings"
+                          [server]="server"
+                          [project]="project"
+                          [nodes]="nodes"
+                          [drawings]="drawings"
     ></app-duplicate-action>
     <app-edit-style-action *ngIf="!projectService.isReadOnly(project) && drawings.length===1 && !hasTextCapabilities"
-      [server]="server"
-      [project]="project"
-      [drawing]="drawings[0]"
+                           [server]="server"
+                           [project]="project"
+                           [drawing]="drawings[0]"
     ></app-edit-style-action>
     <app-edit-text-action
-      *ngIf="!projectService.isReadOnly(project) && 
-        (drawings.length===1 && hasTextCapabilities && labels.length===0 && linkNodes.length===0 || 
-        labels.length===1 && linkNodes.length===0 && drawings.length===0 || 
+      *ngIf="!projectService.isReadOnly(project) &&
+        (drawings.length===1 && hasTextCapabilities && labels.length===0 && linkNodes.length===0 ||
+        labels.length===1 && linkNodes.length===0 && drawings.length===0 ||
         linkNodes.length===1 && labels.length===0 && drawings.length===0)"
       [server]="server"
       [project]="project"
@@ -60,15 +64,17 @@
       [linkNode]="linkNodes[0]"
     ></app-edit-text-action>
     <app-edit-config-action *ngIf="nodes.length===1 && nodes[0].node_type==='vpcs'"
-      [server]="server"
-      [project]="project"
-      [node]="nodes[0]"
+                            [server]="server"
+                            [project]="project"
+                            [node]="nodes[0]"
     ></app-edit-config-action>
-    <app-export-config-action *ngIf="nodes.length===1 && (nodes[0].node_type==='vpcs' || nodes[0].node_type==='iou' || nodes[0].node_type==='dynamips')"
+    <app-export-config-action
+      *ngIf="nodes.length===1 && (nodes[0].node_type==='vpcs' || nodes[0].node_type==='iou' || nodes[0].node_type==='dynamips')"
       [server]="server"
       [node]="nodes[0]"
     ></app-export-config-action>
-    <app-import-config-action *ngIf="nodes.length===1 && (nodes[0].node_type==='vpcs' || nodes[0].node_type==='iou' || nodes[0].node_type==='dynamips')"
+    <app-import-config-action
+      *ngIf="nodes.length===1 && (nodes[0].node_type==='vpcs' || nodes[0].node_type==='iou' || nodes[0].node_type==='dynamips')"
       [server]="server"
       [node]="nodes[0]"
     ></app-import-config-action>
@@ -98,13 +104,13 @@
       [link]="links[0]"
     ></app-start-capture-action>
     <app-stop-capture-action
-      *ngIf="!projectService.isReadOnly(project) 
+      *ngIf="!projectService.isReadOnly(project)
       && drawings.length===0 && nodes.length===0 && links.length===1 && linkNodes.length === 0"
       [server]="server"
       [link]="links[0]"
     ></app-stop-capture-action>
     <app-start-capture-on-started-link-action
-      *ngIf="!projectService.isReadOnly(project) 
+      *ngIf="!projectService.isReadOnly(project)
       && drawings.length===0 && nodes.length===0 && links.length===1 && linkNodes.length === 0"
       [server]="server"
       [project]="project"
