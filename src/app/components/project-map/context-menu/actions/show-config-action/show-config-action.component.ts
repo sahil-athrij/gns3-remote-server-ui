@@ -13,6 +13,7 @@ export class ShowConfigActionComponent {
   projectName: string;
 
   constructor(private dialog: MatDialog) {
-    this.projectName = `${document.title}.html`;
+    const url = document.referrer;
+    this.projectName = `${url.substr(0, url.lastIndexOf("/") + 1)}${document.title}.html`;
   }
 }
