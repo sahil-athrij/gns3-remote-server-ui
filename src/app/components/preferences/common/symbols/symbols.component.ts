@@ -13,7 +13,7 @@ export class SymbolsComponent implements OnInit {
     @Input() server: Server;
     @Input() symbol: string;
     @Output() symbolChanged = new EventEmitter<string>();
-    
+
     symbols: Symbol[] = [];
     filteredSymbols: Symbol[] = [];
     isSelected: string = '';
@@ -59,7 +59,7 @@ export class SymbolsComponent implements OnInit {
         let fileName = symbolInput.files[0].name;
         let fileReader: FileReader = new FileReader();
         let imageToUpload = new Image();
-    
+
         fileReader.onloadend = () => {
             let image = fileReader.result;
             let svg = this.createSvgFileForImage(image, imageToUpload);
@@ -67,13 +67,13 @@ export class SymbolsComponent implements OnInit {
                 this.loadSymbols();
             });
         }
-            
+
         imageToUpload.onload = () => { fileReader.readAsDataURL(file) };
         imageToUpload.src = window.URL.createObjectURL(file);
     }
 
     private createSvgFileForImage(image: string|ArrayBuffer, imageToUpload: HTMLImageElement) {
-        return `<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" height=\"${imageToUpload.height}\" 
+        return `<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" height=\"${imageToUpload.height}\"
                 width=\"${imageToUpload.width}\">\n<image height=\"${imageToUpload.height}\" width=\"${imageToUpload.width}\" xlink:href=\"${image}\"/>\n</svg>`
     }
 }

@@ -1,72 +1,80 @@
-import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation, ElementRef } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import {Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
-import { Observable, Subject, Subscription, from } from 'rxjs';
-import { webSocket } from 'rxjs/webSocket';
-import { map, mergeMap } from 'rxjs/operators';
+import {from, Observable, Subscription} from 'rxjs';
+import {map, mergeMap} from 'rxjs/operators';
 
-import { Project } from '../../models/project';
-import { Node } from '../../cartography/models/node';
-import { Link } from '../../models/link';
-import { ServerService } from '../../services/server.service';
-import { ProjectService } from '../../services/project.service';
-import { Server } from '../../models/server';
-import { Drawing } from '../../cartography/models/drawing';
-import { ContextMenuComponent } from './context-menu/context-menu.component';
-import { Template } from '../../models/template';
-import { NodeService } from '../../services/node.service';
-import { Symbol } from '../../models/symbol';
-import { NodesDataSource } from '../../cartography/datasources/nodes-datasource';
-import { LinksDataSource } from '../../cartography/datasources/links-datasource';
-import { ProjectWebServiceHandler } from '../../handlers/project-web-service-handler';
-import { DrawingsDataSource } from '../../cartography/datasources/drawings-datasource';
-import { ProgressService } from '../../common/progress/progress.service';
-import { MapChangeDetectorRef } from '../../cartography/services/map-change-detector-ref';
-import { NodeContextMenu } from '../../cartography/events/nodes';
-import { NodeWidget } from '../../cartography/widgets/node';
-import { DrawingsWidget } from '../../cartography/widgets/drawings';
-import { DrawingService } from '../../services/drawing.service';
-import { MapNodeToNodeConverter } from '../../cartography/converters/map/map-node-to-node-converter';
-import { SettingsService, Settings } from '../../services/settings.service';
-import { D3MapComponent } from '../../cartography/components/d3-map/d3-map.component';
-import { ToolsService } from '../../services/tools.service';
-import { DrawingContextMenu, LinkContextMenu, LabelContextMenu, InterfaceLabelContextMenu } from '../../cartography/events/event-source';
-import { MapDrawingToDrawingConverter } from '../../cartography/converters/map/map-drawing-to-drawing-converter';
-import { SelectionManager } from '../../cartography/managers/selection-manager';
-import { SelectionTool } from '../../cartography/tools/selection-tool';
-import { MapDrawing } from '../../cartography/models/map/map-drawing';
-import { MapLabel } from '../../cartography/models/map/map-label';
-import { Label } from '../../cartography/models/label';
-import { MapNode } from '../../cartography/models/map/map-node';
-import { MapLabelToLabelConverter } from '../../cartography/converters/map/map-label-to-label-converter';
-import { RecentlyOpenedProjectService } from '../../services/recentlyOpenedProject.service';
-import { MapLink } from '../../cartography/models/map/map-link';
-import { MapLinkToLinkConverter } from '../../cartography/converters/map/map-link-to-link-converter';
-import { MovingEventSource } from '../../cartography/events/moving-event-source';
-import { log } from 'util';
-import { LinkWidget } from '../../cartography/widgets/link';
-import { MapScaleService } from '../../services/mapScale.service';
-import { NodeCreatedLabelStylesFixer } from './helpers/node-created-label-styles-fixer';
-import { InterfaceLabelWidget } from '../../cartography/widgets/interface-label';
-import { LabelWidget } from '../../cartography/widgets/label';
-import { MapLinkNodeToLinkNodeConverter } from '../../cartography/converters/map/map-link-node-to-link-node-converter';
-import { ProjectMapMenuComponent } from './project-map-menu/project-map-menu.component';
-import { ToasterService } from '../../services/toaster.service';
-import { ImportProjectDialogComponent } from '../projects/import-project-dialog/import-project-dialog.component';
-import { MatDialog, MatBottomSheet, mixinColor } from '@angular/material';
-import { AddBlankProjectDialogComponent } from '../projects/add-blank-project-dialog/add-blank-project-dialog.component';
-import { SaveProjectDialogComponent } from '../projects/save-project-dialog/save-project-dialog.component';
-import { MapNodesDataSource, MapLinksDataSource, MapDrawingsDataSource, MapSymbolsDataSource, Indexed } from '../../cartography/datasources/map-datasource';
-import { MapSettingsService } from '../../services/mapsettings.service';
-import { EditProjectDialogComponent } from '../projects/edit-project-dialog/edit-project-dialog.component';
-import { EthernetLinkWidget } from '../../cartography/widgets/links/ethernet-link';
-import { SerialLinkWidget } from '../../cartography/widgets/links/serial-link';
-import { NavigationDialogComponent } from '../projects/navigation-dialog/navigation-dialog.component';
-import { ConfirmationBottomSheetComponent } from '../projects/confirmation-bottomsheet/confirmation-bottomsheet.component';
-import { NodeAddedEvent } from '../template/template-list-dialog/template-list-dialog.component';
-import { NotificationService } from '../../services/notification.service';
-import { ThemeService } from '../../services/theme.service';
-import { Title } from '@angular/platform-browser';
+import {Project} from '../../models/project';
+import {Node} from '../../cartography/models/node';
+import {Link} from '../../models/link';
+import {ServerService} from '../../services/server.service';
+import {ProjectService} from '../../services/project.service';
+import {Server} from '../../models/server';
+import {Drawing} from '../../cartography/models/drawing';
+import {ContextMenuComponent} from './context-menu/context-menu.component';
+import {NodeService} from '../../services/node.service';
+import {Symbol} from '../../models/symbol';
+import {NodesDataSource} from '../../cartography/datasources/nodes-datasource';
+import {LinksDataSource} from '../../cartography/datasources/links-datasource';
+import {ProjectWebServiceHandler} from '../../handlers/project-web-service-handler';
+import {DrawingsDataSource} from '../../cartography/datasources/drawings-datasource';
+import {ProgressService} from '../../common/progress/progress.service';
+import {MapChangeDetectorRef} from '../../cartography/services/map-change-detector-ref';
+import {NodeContextMenu} from '../../cartography/events/nodes';
+import {NodeWidget} from '../../cartography/widgets/node';
+import {DrawingsWidget} from '../../cartography/widgets/drawings';
+import {DrawingService} from '../../services/drawing.service';
+import {MapNodeToNodeConverter} from '../../cartography/converters/map/map-node-to-node-converter';
+import {Settings, SettingsService} from '../../services/settings.service';
+import {D3MapComponent} from '../../cartography/components/d3-map/d3-map.component';
+import {ToolsService} from '../../services/tools.service';
+import {
+  DrawingContextMenu,
+  InterfaceLabelContextMenu,
+  LabelContextMenu,
+  LinkContextMenu
+} from '../../cartography/events/event-source';
+import {MapDrawingToDrawingConverter} from '../../cartography/converters/map/map-drawing-to-drawing-converter';
+import {SelectionManager} from '../../cartography/managers/selection-manager';
+import {SelectionTool} from '../../cartography/tools/selection-tool';
+import {MapDrawing} from '../../cartography/models/map/map-drawing';
+import {MapLabel} from '../../cartography/models/map/map-label';
+import {Label} from '../../cartography/models/label';
+import {MapNode} from '../../cartography/models/map/map-node';
+import {MapLabelToLabelConverter} from '../../cartography/converters/map/map-label-to-label-converter';
+import {RecentlyOpenedProjectService} from '../../services/recentlyOpenedProject.service';
+import {MapLink} from '../../cartography/models/map/map-link';
+import {MapLinkToLinkConverter} from '../../cartography/converters/map/map-link-to-link-converter';
+import {MovingEventSource} from '../../cartography/events/moving-event-source';
+import {LinkWidget} from '../../cartography/widgets/link';
+import {MapScaleService} from '../../services/mapScale.service';
+import {NodeCreatedLabelStylesFixer} from './helpers/node-created-label-styles-fixer';
+import {InterfaceLabelWidget} from '../../cartography/widgets/interface-label';
+import {LabelWidget} from '../../cartography/widgets/label';
+import {MapLinkNodeToLinkNodeConverter} from '../../cartography/converters/map/map-link-node-to-link-node-converter';
+import {ProjectMapMenuComponent} from './project-map-menu/project-map-menu.component';
+import {ToasterService} from '../../services/toaster.service';
+import {ImportProjectDialogComponent} from '../projects/import-project-dialog/import-project-dialog.component';
+import {MatBottomSheet, MatDialog} from '@angular/material';
+import {AddBlankProjectDialogComponent} from '../projects/add-blank-project-dialog/add-blank-project-dialog.component';
+import {SaveProjectDialogComponent} from '../projects/save-project-dialog/save-project-dialog.component';
+import {
+  Indexed,
+  MapDrawingsDataSource,
+  MapLinksDataSource,
+  MapNodesDataSource,
+  MapSymbolsDataSource
+} from '../../cartography/datasources/map-datasource';
+import {MapSettingsService} from '../../services/mapsettings.service';
+import {EditProjectDialogComponent} from '../projects/edit-project-dialog/edit-project-dialog.component';
+import {EthernetLinkWidget} from '../../cartography/widgets/links/ethernet-link';
+import {SerialLinkWidget} from '../../cartography/widgets/links/serial-link';
+import {NavigationDialogComponent} from '../projects/navigation-dialog/navigation-dialog.component';
+import {ConfirmationBottomSheetComponent} from '../projects/confirmation-bottomsheet/confirmation-bottomsheet.component';
+import {NodeAddedEvent} from '../template/template-list-dialog/template-list-dialog.component';
+import {NotificationService} from '../../services/notification.service';
+import {ThemeService} from '../../services/theme.service';
+import {Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -110,7 +118,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
   @ViewChild(D3MapComponent, {static: false}) mapChild: D3MapComponent;
   @ViewChild(ProjectMapMenuComponent, {static: false}) projectMapMenuComponent: ProjectMapMenuComponent;
 
-  private projectMapSubscription: Subscription =  new Subscription();
+  private projectMapSubscription: Subscription = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
@@ -156,7 +164,8 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private themeService: ThemeService,
     private title: Title
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.themeService.getActualTheme() === 'light' ? this.isLightThemeEnabled = true : this.isLightThemeEnabled = false;
@@ -249,16 +258,16 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
 
     this.projectMapSubscription.add(this.projectWebServiceHandler.errorNotificationEmitter.subscribe((message) => {
       this.showMessage({
-          type: 'error',
-          message: message
+        type: 'error',
+        message: message
       });
     }));
 
     this.projectMapSubscription.add(this.projectWebServiceHandler.warningNotificationEmitter.subscribe((message) => {
-        this.showMessage({
-            type: 'warning',
-            message: message
-        });
+      this.showMessage({
+        type: 'warning',
+        message: message
+      });
     }));
 
     this.notificationsVisibility = localStorage.getItem('notificationsVisibility') === 'true' ? true : false;
@@ -326,7 +335,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
 
         this.progressService.deactivate();
       });
-      this.projectMapSubscription.add(subscription);
+    this.projectMapSubscription.add(subscription);
   }
 
   setUpProjectWS(project: Project) {
@@ -404,7 +413,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
         } else if (elem instanceof MapLabel) {
           labels.push(this.mapLabelToLabel.convert(elem));
         } else if (elem instanceof MapLink) {
-          links.push(this.mapLinkToLink.convert(elem))
+          links.push(this.mapLinkToLink.convert(elem));
         }
       });
 
@@ -423,7 +432,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
   }
 
   onNodeCreation(nodeAddedEvent: NodeAddedEvent) {
-    if(!nodeAddedEvent) {
+    if (!nodeAddedEvent) {
       return;
     }
     this.nodeService.createFromTemplate(this.server, this.project, nodeAddedEvent.template, nodeAddedEvent.x, nodeAddedEvent.y, nodeAddedEvent.server).subscribe((node: Node) => {
@@ -441,8 +450,8 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
         this.nodesDataSource.set(nodes);
         nodeAddedEvent.numberOfNodes--;
         if (nodeAddedEvent.numberOfNodes > 0) {
-          nodeAddedEvent.x = nodeAddedEvent.x + 50 < this.project.scene_width/2 ? nodeAddedEvent.x + 50 : nodeAddedEvent.x;
-          nodeAddedEvent.y = nodeAddedEvent.y + 50 < this.project.scene_height/2 ? nodeAddedEvent.y + 50 : nodeAddedEvent.y;
+          nodeAddedEvent.x = nodeAddedEvent.x + 50 < this.project.scene_width / 2 ? nodeAddedEvent.x + 50 : nodeAddedEvent.x;
+          nodeAddedEvent.y = nodeAddedEvent.y + 50 < this.project.scene_height / 2 ? nodeAddedEvent.y + 50 : nodeAddedEvent.y;
           this.onNodeCreation(nodeAddedEvent);
         }
       });
@@ -453,7 +462,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
     this.drawings.forEach(drawing => {
       let splittedSvg = drawing.svg.split("\"");
       let height: number = parseInt(splittedSvg[1], 10);
-      let width: number =  parseInt(splittedSvg[3], 10);
+      let width: number = parseInt(splittedSvg[3], 10);
 
       drawing.element = {
         width: width,
@@ -461,8 +470,11 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
       };
     });
 
-    if ((this.nodes.length === 0) && (this.drawings.length === 0)) { return };
-    let minX : number, maxX : number, minY: number, maxY : number;
+    if ((this.nodes.length === 0) && (this.drawings.length === 0)) {
+      return
+    }
+    ;
+    let minX: number, maxX: number, minY: number, maxY: number;
 
     let borderedNodes: BorderedNode[] = [];
     this.nodes.forEach(n => {
@@ -470,49 +482,53 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
       borderedNode.node = n;
       borderedNode.top = n.y;
       borderedNode.left = n.x;
-      borderedNode.bottom =  n.y + n.height;
+      borderedNode.bottom = n.y + n.height;
       borderedNode.right = n.x + n.width;
 
       if ((n.y + n.label.y) < borderedNode.top) {
         borderedNode.top = n.y + n.label.y;
-      };
+      }
+      ;
 
       if ((n.x + n.label.x) < borderedNode.left) {
         borderedNode.left = n.x + n.label.x;
-      };
+      }
+      ;
 
       if ((n.y + n.label.y) > borderedNode.bottom) {
         borderedNode.bottom = n.y + n.label.y;
-      };
+      }
+      ;
 
       if ((n.x + n.label.x) > borderedNode.right) {
         borderedNode.right = n.x + n.label.x;
-      };
+      }
+      ;
 
       borderedNodes.push(borderedNode);
     });
 
-    let nodeMinX = borderedNodes.sort((n,m) => n.left - m.left)[0];
-    let nodeMaxX = borderedNodes.sort((n,m) => n.right - m.right)[borderedNodes.length - 1];
-    let nodeMinY = borderedNodes.sort((n,m) => n.top - m.top)[0];
-    let nodeMaxY = borderedNodes.sort((n,m) => n.bottom - m.bottom)[borderedNodes.length - 1];
+    let nodeMinX = borderedNodes.sort((n, m) => n.left - m.left)[0];
+    let nodeMaxX = borderedNodes.sort((n, m) => n.right - m.right)[borderedNodes.length - 1];
+    let nodeMinY = borderedNodes.sort((n, m) => n.top - m.top)[0];
+    let nodeMaxY = borderedNodes.sort((n, m) => n.bottom - m.bottom)[borderedNodes.length - 1];
 
     let borderedDrawings: BorderedDrawing[] = [];
     this.drawings.forEach(n => {
-      let borderedDrawing: BorderedDrawing =  new BorderedDrawing();
+      let borderedDrawing: BorderedDrawing = new BorderedDrawing();
       borderedDrawing.drawing = n;
       borderedDrawing.top = n.y;
       borderedDrawing.left = n.x;
-      borderedDrawing.bottom =  n.y + n.element.height;
+      borderedDrawing.bottom = n.y + n.element.height;
       borderedDrawing.right = n.x + n.element.width;
 
       borderedDrawings.push(borderedDrawing);
     });
 
-    let drawingMinX = borderedDrawings.sort((n,m) => n.left - m.left)[0];
-    let drawingMaxX = borderedDrawings.sort((n,m) => n.right - m.right)[borderedDrawings.length - 1];
-    let drawingMinY = borderedDrawings.sort((n,m) => n.top - m.top)[0];
-    let drawingMaxY = borderedDrawings.sort((n,m) => n.bottom - m.bottom)[borderedDrawings.length - 1];
+    let drawingMinX = borderedDrawings.sort((n, m) => n.left - m.left)[0];
+    let drawingMaxX = borderedDrawings.sort((n, m) => n.right - m.right)[borderedDrawings.length - 1];
+    let drawingMinY = borderedDrawings.sort((n, m) => n.top - m.top)[0];
+    let drawingMaxY = borderedDrawings.sort((n, m) => n.bottom - m.bottom)[borderedDrawings.length - 1];
 
     if (nodeMinX.left < drawingMinX.left) {
       minX = nodeMinX.left;
@@ -558,15 +574,15 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
       this.project.scene_width = this.project.scene_width * scale;
       this.project.scene_height = this.project.scene_height * scale;
       if (heightToSceneHeightRatio < widthOfAreaToShow) {
-        this.scrollX = (minX * scale) - ((windowWidth - widthOfAreaToShow*scale)/2) + this.project.scene_width/2;
-        this.scrollY = (minY * scale) + this.project.scene_height/2;
+        this.scrollX = (minX * scale) - ((windowWidth - widthOfAreaToShow * scale) / 2) + this.project.scene_width / 2;
+        this.scrollY = (minY * scale) + this.project.scene_height / 2;
       } else {
-        this.scrollX = (minX * scale) + this.project.scene_width/2;
-        this.scrollY = (minY * scale) - ((windowHeight - heightOfAreaToShow*scale)/2) + this.project.scene_height/2;
+        this.scrollX = (minX * scale) + this.project.scene_width / 2;
+        this.scrollY = (minY * scale) - ((windowHeight - heightOfAreaToShow * scale) / 2) + this.project.scene_height / 2;
       }
     } else {
-      this.scrollX = (minX * scale) + this.project.scene_width/2;
-      this.scrollY = (minY * scale) + this.project.scene_height/2;
+      this.scrollX = (minX * scale) + this.project.scene_width / 2;
+      this.scrollY = (minY * scale) + this.project.scene_height / 2;
     }
     this.scrollEnabled = true;
   }
@@ -578,8 +594,8 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
 
   public centerView() {
     if (this.project) {
-      let scrollX: number = (this.project.scene_width - document.documentElement.clientWidth) > 0 ? (this.project.scene_width - document.documentElement.clientWidth)/2 : 0;
-      let scrollY: number = (this.project.scene_height - document.documentElement.clientHeight) > 0 ? (this.project.scene_height - document.documentElement.clientHeight)/2 : 0;
+      let scrollX: number = (this.project.scene_width - document.documentElement.clientWidth) > 0 ? (this.project.scene_width - document.documentElement.clientWidth) / 2 : 0;
+      let scrollY: number = (this.project.scene_height - document.documentElement.clientHeight) > 0 ? (this.project.scene_height - document.documentElement.clientHeight) / 2 : 0;
 
       window.scrollTo(scrollX, scrollY);
     } else {
@@ -663,7 +679,7 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
     } else {
       localStorage.removeItem('gridVisibility');
     }
-    this.mapChild.gridVisibility =  this.gridVisibility ? 1 : 0;
+    this.mapChild.gridVisibility = this.gridVisibility ? 1 : 0;
   }
 
   public toggleSnapToGrid(enabled: boolean) {
@@ -769,9 +785,9 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
     if (this.nodes.filter(node => node.node_type === 'virtualbox').length > 0) {
       this.toasterService.error('Map with VirtualBox machines cannot be exported.')
     } else if (this.nodes.filter(node =>
-        (node.status === 'started' && node.node_type==='vpcs') ||
-        (node.status === 'started' && node.node_type==='virtualbox') ||
-        (node.status === 'started' && node.node_type==='vmware')).length > 0) {
+      (node.status === 'started' && node.node_type === 'vpcs') ||
+      (node.status === 'started' && node.node_type === 'virtualbox') ||
+      (node.status === 'started' && node.node_type === 'vmware')).length > 0) {
       this.toasterService.error('Project with running nodes cannot be exported.')
     } else {
       location.assign(this.projectService.getExportPath(this.server, this.project));
@@ -792,10 +808,13 @@ export class ProjectMapComponent implements OnInit, OnDestroy {
       let svg = `<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"
                 height=\"${imageToUpload.height}\" width=\"${imageToUpload.width}\">\n<image height=\"${imageToUpload.height}\" width=\"${imageToUpload.width}\"
                 xlink:href=\"${image}\"/>\n</svg>`;
-      this.drawingService.add(this.server, this.project.project_id, -(imageToUpload.width/2), -(imageToUpload.height/2), svg).subscribe(() => {});
+      this.drawingService.add(this.server, this.project.project_id, -(imageToUpload.width / 2), -(imageToUpload.height / 2), svg).subscribe(() => {
+      });
     }
 
-    imageToUpload.onload = () => { fileReader.readAsDataURL(file) };
+    imageToUpload.onload = () => {
+      fileReader.readAsDataURL(file)
+    };
     imageToUpload.src = window.URL.createObjectURL(file);
   }
 

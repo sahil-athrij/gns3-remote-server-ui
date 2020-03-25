@@ -44,23 +44,23 @@ export class ProjectMapMenuComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.themeService.getActualTheme() === 'light' ? this.isLightThemeEnabled = true : this.isLightThemeEnabled = false; 
+        this.themeService.getActualTheme() === 'light' ? this.isLightThemeEnabled = true : this.isLightThemeEnabled = false;
     }
 
     getCssClassForIcon(type: string) {
         if (type === 'text') {
             return {
-                'unmarkedLight': !this.drawTools.isTextChosen && this.isLightThemeEnabled, 
+                'unmarkedLight': !this.drawTools.isTextChosen && this.isLightThemeEnabled,
                 'marked': this.drawTools.isTextChosen
             };
         } else if (type === 'rectangle') {
             return {
-                'unmarkedLight': !this.drawTools.isRectangleChosen && this.isLightThemeEnabled, 
+                'unmarkedLight': !this.drawTools.isRectangleChosen && this.isLightThemeEnabled,
                 'marked': this.drawTools.isRectangleChosen
             };
         }
         return {
-            'unmarkedLight': !this.drawTools.isEllipseChosen && this.isLightThemeEnabled, 
+            'unmarkedLight': !this.drawTools.isEllipseChosen && this.isLightThemeEnabled,
             'marked': this.drawTools.isEllipseChosen
         };
     }
@@ -85,7 +85,7 @@ export class ProjectMapMenuComponent implements OnInit, OnDestroy {
                 let splittedImage = splittedSvg[i].split("\"");
                 let splittedUrl = splittedImage[1].split("/");
 
-                let elem = await this.symbolService.raw(this.server, splittedUrl[7]).toPromise(); 
+                let elem = await this.symbolService.raw(this.server, splittedUrl[7]).toPromise();
                 let splittedElement = elem.split('-->');
                 splittedSvg[i] = splittedElement[1].substring(2);
                 i += 2;
@@ -134,7 +134,7 @@ export class ProjectMapMenuComponent implements OnInit, OnDestroy {
             this.toolsService.textAddingToolActivation(this.drawTools.isTextChosen);
             break;
         }
-    
+
         this.selectedDrawing = this.selectedDrawing === selectedObject ? '' : selectedObject;
     }
 
@@ -159,24 +159,24 @@ export class ProjectMapMenuComponent implements OnInit, OnDestroy {
     public uploadImageFile(event) {
         this.readImageFile(event.target);
     }
-    
+
     private readImageFile(fileInput) {
         let file: File = fileInput.files[0];
         let fileReader: FileReader = new FileReader();
         let imageToUpload = new Image();
-    
+
         fileReader.onloadend = () => {
             let image = fileReader.result;
             let svg = this.createSvgFileForImage(image, imageToUpload);
             this.drawingService.add(this.server, this.project.project_id, -(imageToUpload.width/2), -(imageToUpload.height/2), svg).subscribe(() => {});
         }
-            
+
         imageToUpload.onload = () => { fileReader.readAsDataURL(file) };
         imageToUpload.src = window.URL.createObjectURL(file);
     }
 
     private createSvgFileForImage(image: string|ArrayBuffer, imageToUpload: HTMLImageElement) {
-        return `<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" height=\"${imageToUpload.height}\" 
+        return `<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" height=\"${imageToUpload.height}\"
                 width=\"${imageToUpload.width}\">\n<image height=\"${imageToUpload.height}\" width=\"${imageToUpload.width}\" xlink:href=\"${image}\"/>\n</svg>`
     }
 

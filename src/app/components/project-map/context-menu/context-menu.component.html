@@ -2,13 +2,19 @@
   <span [matMenuTriggerFor]="contextMenu"></span>
   <mat-menu #contextMenu="matMenu" class="context-menu-items">
     <app-show-config-action *ngIf="nodes.length===1"
-                          [server]="server"
-                          [node]="nodes[0]"
+                            [server]="server"
+                            [node]="nodes[0]"
     ></app-show-config-action>
+    <app-upload-node-action *ngIf="nodes.length===1"
+                            [server]="server"
+                            [node]="nodes[0]">
+
+    </app-upload-node-action>
     <app-show-node-action *ngIf="nodes.length===1"
                           [server]="server"
                           [node]="nodes[0]"
     ></app-show-node-action>
+
     <app-config-node-action *ngIf="nodes.length===1"
                             [server]="server"
                             [node]="nodes[0]"

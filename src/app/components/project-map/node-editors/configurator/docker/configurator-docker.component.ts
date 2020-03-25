@@ -38,7 +38,7 @@ export class ConfiguratorDialogDockerComponent implements OnInit {
             this.node = node;
             this.name = node.name;
             this.getConfiguration();
-        })
+        });
     }
 
     getConfiguration() {
