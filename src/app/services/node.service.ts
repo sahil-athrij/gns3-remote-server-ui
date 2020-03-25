@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import {Node} from '../cartography/models/node';
 import {Project} from '../models/project';
 
-// tslint:disable-next-line:no-submodule-imports
 import 'rxjs/add/operator/map';
 import {Label} from '../cartography/models/label';
 import {Server} from '../models/server';
@@ -174,7 +173,7 @@ export class NodeService {
     }
 
     saveConfiguration(server: Server, node: Node, configuration: string) {
-        let urlPath = `/projects/${node.project_id}/nodes/${node.node_id}`;
+        let urlPath = `/projects/${node.project_id}/nodes/${node.node_id}`
 
         if (node.node_type === 'vpcs') {
             urlPath += '/files/startup.vpc';
@@ -188,7 +187,7 @@ export class NodeService {
     }
 
     savePrivateConfiguration(server: Server, node: Node, configuration: string) {
-        let urlPath = `/projects/${node.project_id}/nodes/${node.node_id}`;
+        let urlPath: string = `/projects/${node.project_id}/nodes/${node.node_id}`
 
         if (node.node_type === 'iou') {
             urlPath += '/files/private-config.cfg';
